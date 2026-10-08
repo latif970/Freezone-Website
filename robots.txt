@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://freezoneleeuwarden.nl/sitemap.xml
+Sitemap: https://freezonepoolcafe.nl/sitemap.xml

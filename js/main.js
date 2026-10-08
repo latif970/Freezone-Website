@@ -131,6 +131,9 @@
     return /^[\d\s\-+().]{6,20}$/.test(phone);
   }
 
+  // ===== Supabase client (loaded from supabase-config.js) =====
+  var sb = window.supabaseClient;
+
   // ===== Rate limiting =====
   var lastSubmitTime = 0;
   var RATE_LIMIT_MS = 15000;
@@ -150,7 +153,7 @@
   }
 
   if (resForm) {
-    resForm.addEventListener('submit', function (e) {
+    resForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
       // Honeypot check
@@ -208,23 +211,27 @@
 
       lastSubmitTime = nowMs;
 
-      var reservations = [];
-      try { reservations = JSON.parse(localStorage.getItem('fz-reservations') || '[]'); } catch (e) {}
+      var row = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        type: data.type,
+        date: data.date,
+        time: data.time,
+        duration: data.duration || null,
+        guests: data.guests || null,
+        notes: data.notes || null,
+        status: 'pending'
+      };
 
-      // Limit total stored reservations to prevent storage abuse
-      if (reservations.length >= 500) {
-        var cutoff = new Date();
-        cutoff.setDate(cutoff.getDate() - 30);
-        reservations = reservations.filter(function (r) {
-          return new Date(r.createdAt) > cutoff;
-        });
+      var result = await sb.from('reservations').insert([row]);
+
+      if (result.error) {
+        showStatus(currentLang === 'nl'
+          ? 'Er ging iets mis. Probeer het opnieuw.'
+          : 'Something went wrong. Please try again.', 'error');
+        return;
       }
-
-      data.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-      data.status = 'pending';
-      data.createdAt = new Date().toISOString();
-      reservations.push(data);
-      try { localStorage.setItem('fz-reservations', JSON.stringify(reservations)); } catch (e) {}
 
       showStatus(currentLang === 'nl'
         ? 'Reservering ontvangen! We nemen snel contact op ter bevestiging.'

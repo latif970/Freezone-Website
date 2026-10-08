@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — Freezone Poolcafé</title>
+<link rel="icon" href="img/freezone-logo.png" type="image/png" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9922e;
+  --gold-light: #e4b94e;
+  --bg: #0a0a0f;
+  --text: #f0ede6;
+  --text-dim: rgba(240, 237, 230, 0.55);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+.container { max-width: 480px; }
+h1 {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 6rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+p { color: var(--text-dim); font-size: 1.1rem; margin-bottom: 32px; }
+a {
+  display: inline-block;
+  padding: 14px 36px;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #000;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201, 146, 46, 0.4);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>404</h1>
+  <p>Deze pagina bestaat niet. Misschien wil je een biertje bestellen?</p>
+  <a href="/">Terug naar home</a>
+</div>
+</body>
+</html>

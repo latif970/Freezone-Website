@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Freezone Admin — Reservation Dashboard</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="img/freezone-logo.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -117,7 +119,7 @@ body::before {
   margin-bottom: 24px;
 }
 .pin-input input {
-  width: 54px; height: 60px;
+  width: 46px; height: 56px;
   text-align: center;
   font-family: 'Sora', system-ui, sans-serif;
   font-size: 1.5rem; font-weight: 700;
@@ -455,7 +457,7 @@ body::before {
 }
 @media (max-width: 500px) {
   .stats-row { grid-template-columns: 1fr; }
-  .pin-input input { width: 48px; height: 52px; font-size: 1.3rem; }
+  .pin-input input { width: 40px; height: 48px; font-size: 1.1rem; }
   .login-card { padding: 36px 28px; }
 }
 </style>
@@ -473,6 +475,8 @@ body::before {
     <h1>Freezone Admin</h1>
     <p class="login-sub">Voer de PIN-code in om toegang te krijgen tot het dashboard.</p>
     <div class="pin-input" id="pin-input">
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
       <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
       <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
       <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
@@ -573,16 +577,19 @@ body::before {
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="js/supabase-config.js"></script>
 <script>
 (function () {
   'use strict';
 
-  // SHA-256 hash of the admin PIN — to change the PIN, update this hash
-  // Current PIN: 1234 → SHA-256 hash below
-  var PIN_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+  var sb = window.supabaseClient;
+
+  var PIN_HASH = 'ea722ae8d99995bb86c9318daf1f34dc516d731f9b753e3a741185431b76acd1';
+  var PIN_LENGTH = 6;
 
   var MAX_ATTEMPTS = 5;
-  var LOCKOUT_MS = 300000; // 5 minutes
+  var LOCKOUT_MS = 300000;
   var failedAttempts = 0;
   var lockoutUntil = 0;
 
@@ -609,7 +616,6 @@ body::before {
     return array.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
   }
 
-  // PIN input auto-focus
   var pinInputs = document.querySelectorAll('#pin-input input');
   var loginBtn = document.getElementById('login-btn');
   var loginError = document.getElementById('login-error');
@@ -661,9 +667,8 @@ body::before {
 
   loginBtn.addEventListener('click', async function () {
     if (checkLockout()) return;
-
     var pin = getPin();
-    if (pin.length !== 4) return;
+    if (pin.length !== PIN_LENGTH) return;
 
     var hash = await hashPin(pin);
     if (hash === PIN_HASH) {
@@ -687,7 +692,7 @@ body::before {
   });
 
   pinInputs[pinInputs.length - 1].addEventListener('input', function () {
-    if (getPin().length === 4) {
+    if (getPin().length === PIN_LENGTH) {
       setTimeout(function () { loginBtn.click(); }, 100);
     }
   });
@@ -707,16 +712,21 @@ body::before {
     renderAll();
   }
 
-  function getReservations() {
-    try { return JSON.parse(localStorage.getItem('fz-reservations') || '[]'); } catch (e) { return []; }
+  var allReservations = [];
+
+  async function fetchReservations() {
+    var result = await sb.from('reservations').select('*').order('date', { ascending: true }).order('time', { ascending: true });
+    if (result.error) {
+      allReservations = [];
+    } else {
+      allReservations = result.data;
+    }
   }
 
-  function saveReservations(list) {
-    try { localStorage.setItem('fz-reservations', JSON.stringify(list)); } catch (e) {}
-  }
+  async function renderAll() {
+    await fetchReservations();
+    var list = allReservations;
 
-  function renderAll() {
-    var list = getReservations();
     var statusFilter = document.getElementById('filter-status').value;
     var typeFilter = document.getElementById('filter-type').value;
     var dateFilter = document.getElementById('filter-date').value;
@@ -728,20 +738,12 @@ body::before {
       return true;
     });
 
-    filtered.sort(function (a, b) {
-      var da = a.date + ' ' + a.time;
-      var db = b.date + ' ' + b.time;
-      return da < db ? -1 : da > db ? 1 : 0;
-    });
-
-    // Stats
     var todayStr = new Date().toISOString().slice(0, 10);
     document.getElementById('stat-total').textContent = list.length;
     document.getElementById('stat-pending').textContent = list.filter(function (r) { return r.status === 'pending'; }).length;
     document.getElementById('stat-confirmed').textContent = list.filter(function (r) { return r.status === 'confirmed'; }).length;
     document.getElementById('stat-today').textContent = list.filter(function (r) { return r.date === todayStr; }).length;
 
-    // Table
     var tbody = document.getElementById('res-body');
     var empty = document.getElementById('empty-state');
     tbody.innerHTML = '';
@@ -763,8 +765,8 @@ body::before {
         '<td>' + (typeLabels[r.type] || r.type) + '</td>' +
         '<td>' + esc(r.date) + '</td>' +
         '<td>' + esc(r.time) + '</td>' +
-        '<td>' + esc(r.duration) + ' uur</td>' +
-        '<td>' + esc(r.guests) + '</td>' +
+        '<td>' + esc(r.duration || '-') + ' uur</td>' +
+        '<td>' + esc(r.guests || '-') + '</td>' +
         '<td><span class="status-badge ' + statusClass + '">' + (statusLabels[r.status] || r.status) + '</span></td>' +
         '<td>' +
           (r.status === 'pending' ? '<button class="action-btn confirm" data-id="' + r.id + '" data-action="confirmed">Bevestig</button>' : '') +
@@ -775,18 +777,14 @@ body::before {
     });
 
     tbody.querySelectorAll('.action-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', async function () {
         var id = this.getAttribute('data-id');
         var action = this.getAttribute('data-action');
-        var all = getReservations();
         if (action === 'delete') {
-          all = all.filter(function (r) { return r.id !== id; });
+          await sb.from('reservations').delete().eq('id', id);
         } else {
-          all.forEach(function (r) {
-            if (r.id === id) r.status = action;
-          });
+          await sb.from('reservations').update({ status: action }).eq('id', id);
         }
-        saveReservations(all);
         renderAll();
       });
     });
@@ -805,11 +803,11 @@ body::before {
 
   // CSV Export
   document.getElementById('export-btn').addEventListener('click', function () {
-    var list = getReservations();
+    var list = allReservations;
     if (!list.length) return;
     var headers = ['Naam', 'Email', 'Telefoon', 'Type', 'Datum', 'Tijd', 'Duur', 'Gasten', 'Status', 'Opmerkingen', 'Aangemaakt'];
     var rows = list.map(function (r) {
-      return [r.name, r.email, r.phone || '', r.type, r.date, r.time, r.duration, r.guests, r.status, r.notes || '', r.createdAt || ''].map(function (v) {
+      return [r.name, r.email, r.phone || '', r.type, r.date, r.time, r.duration || '', r.guests || '', r.status, r.notes || '', r.created_at || ''].map(function (v) {
         return '"' + String(v).replace(/"/g, '""') + '"';
       }).join(',');
     });
