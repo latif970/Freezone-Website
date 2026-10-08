@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freezone Admin — Reservation Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9922e;
+  --gold-light: #e4b94e;
+  --gold-dim: rgba(201, 146, 46, 0.15);
+  --gold-glow: rgba(201, 146, 46, 0.4);
+  --green: #1b4332;
+  --green-light: #2d6a4f;
+  --bg: #0a0a0f;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --surface: #111118;
+  --text: #f0ede6;
+  --text-dim: rgba(240, 237, 230, 0.55);
+  --text-muted: rgba(240, 237, 230, 0.35);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(201, 146, 46, 0.25);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --status-green: #5ec98e;
+  --status-red: #e06060;
+  --status-yellow: #e4b94e;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Manrope', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.4;
+}
+
+/* ===== LOGIN ===== */
+.login-screen {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  position: relative;
+}
+.login-glow {
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+.login-glow-1 {
+  background: radial-gradient(circle, rgba(201,146,46,0.12), transparent 70%);
+  top: 20%; left: 30%;
+}
+.login-glow-2 {
+  background: radial-gradient(circle, rgba(27,67,50,0.2), transparent 70%);
+  bottom: 20%; right: 25%;
+}
+
+.login-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  max-width: 400px; width: 100%;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  animation: fadeUp 0.6s var(--ease) forwards;
+  opacity: 0; transform: translateY(20px);
+}
+.login-card::before {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(201,146,46,0.1), transparent 40%, transparent 60%, rgba(27,67,50,0.1));
+  z-index: -1;
+}
+.login-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px;
+  background: var(--gold-dim);
+  border-radius: 16px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.login-card h1 {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: 6px;
+}
+.login-card .login-sub {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+.pin-input {
+  display: flex; gap: 12px; justify-content: center;
+  margin-bottom: 24px;
+}
+.pin-input input {
+  width: 54px; height: 60px;
+  text-align: center;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+.pin-input input:focus {
+  border-color: var(--gold);
+  background: rgba(201,146,46,0.04);
+  box-shadow: 0 0 0 3px rgba(201,146,46,0.1);
+}
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: #000;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  position: relative;
+}
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--gold-glow);
+}
+.login-btn::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  z-index: -1;
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.login-btn:hover::after { opacity: 0.35; }
+.login-error {
+  color: var(--status-red);
+  font-size: 0.85rem;
+  margin-top: 16px;
+  min-height: 1.2em;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard { display: none; }
+.dashboard.active { display: block; animation: fadeUp 0.5s var(--ease) forwards; }
+
+.dash-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.dash-brand {
+  display: flex; align-items: center; gap: 12px;
+}
+.dash-brand-dot {
+  width: 8px; height: 8px;
+  background: var(--status-green);
+  border-radius: 50%;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(94,201,142,0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 5px transparent; }
+}
+.dash-title {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+}
+.dash-actions { display: flex; gap: 10px; align-items: center; }
+.dash-btn {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.82rem; font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.dash-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--gold-light);
+  background: rgba(201,146,46,0.05);
+}
+.dash-btn-logout:hover {
+  border-color: rgba(224,96,96,0.3);
+  color: var(--status-red);
+  background: rgba(224,96,96,0.05);
+}
+
+.dash-body {
+  padding: 32px;
+  max-width: 1200px; margin: 0 auto;
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.stat-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  transition: border-color 0.4s, transform 0.4s var(--ease), box-shadow 0.4s;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.stat-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.stat-card:hover::before { opacity: 1; }
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 2.2rem; font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-card.pending .stat-value { color: var(--status-yellow); }
+.stat-card.confirmed .stat-value { color: var(--status-green); }
+.stat-card.today .stat-value { color: var(--text); }
+
+/* Filter */
+.filter-bar {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.filter-label {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.filter-label svg { color: var(--gold); }
+.filter-bar select, .filter-bar input[type="date"] {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.88rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+.filter-bar select:focus, .filter-bar input[type="date"]:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,146,46,0.1);
+}
+.filter-bar select option { background: var(--surface); color: var(--text); }
+
+/* Table wrapper */
+.table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.res-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.res-table th {
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border);
+}
+.res-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.res-table tbody tr {
+  transition: background 0.2s;
+}
+.res-table tbody tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+.res-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.res-name {
+  font-weight: 600;
+}
+.res-email {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.status-pending {
+  background: rgba(228,185,78,0.12);
+  color: var(--status-yellow);
+}
+.status-confirmed {
+  background: rgba(94,201,142,0.12);
+  color: var(--status-green);
+}
+.status-cancelled {
+  background: rgba(224,96,96,0.12);
+  color: var(--status-red);
+}
+
+/* Action buttons */
+.action-btn {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 0.78rem; font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  margin-right: 4px;
+}
+.action-btn.confirm {
+  background: rgba(94,201,142,0.1);
+  color: var(--status-green);
+}
+.action-btn.confirm:hover {
+  background: rgba(94,201,142,0.2);
+  box-shadow: 0 0 12px rgba(94,201,142,0.15);
+}
+.action-btn.cancel {
+  background: rgba(224,96,96,0.1);
+  color: var(--status-red);
+}
+.action-btn.cancel:hover {
+  background: rgba(224,96,96,0.2);
+  box-shadow: 0 0 12px rgba(224,96,96,0.15);
+}
+.action-btn.delete {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+}
+.action-btn.delete:hover {
+  background: rgba(224,96,96,0.1);
+  color: var(--status-red);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-dim);
+}
+.empty-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px;
+  background: var(--gold-dim);
+  border-radius: 18px;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.empty-state p {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+.empty-state small {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Animation */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .dash-body { padding: 20px 16px; }
+  .dash-header { padding: 14px 16px; }
+  .res-table { font-size: 0.8rem; }
+  .res-table th, .res-table td { padding: 10px 10px; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+  .dash-actions { gap: 6px; }
+  .dash-btn { padding: 6px 12px; font-size: 0.78rem; }
+}
+@media (max-width: 500px) {
+  .stats-row { grid-template-columns: 1fr; }
+  .pin-input input { width: 48px; height: 52px; font-size: 1.3rem; }
+  .login-card { padding: 36px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-screen" id="login-screen">
+  <div class="login-glow login-glow-1"></div>
+  <div class="login-glow login-glow-2"></div>
+  <div class="login-card">
+    <div class="login-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h1>Freezone Admin</h1>
+    <p class="login-sub">Voer de PIN-code in om toegang te krijgen tot het dashboard.</p>
+    <div class="pin-input" id="pin-input">
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+      <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off" />
+    </div>
+    <button class="login-btn" id="login-btn">
+      <span>Login</span>
+    </button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <div class="dash-brand">
+      <div class="dash-brand-dot"></div>
+      <div class="dash-title">Freezone — Reserveringen</div>
+    </div>
+    <div class="dash-actions">
+      <button class="dash-btn" id="export-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export CSV
+      </button>
+      <a class="dash-btn" href="index.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Website
+      </a>
+      <button class="dash-btn dash-btn-logout" id="logout-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Uitloggen
+      </button>
+    </div>
+  </div>
+  <div class="dash-body">
+    <div class="stats-row" id="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Totaal</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+      <div class="stat-card pending">
+        <div class="stat-label">In afwachting</div>
+        <div class="stat-value" id="stat-pending">0</div>
+      </div>
+      <div class="stat-card confirmed">
+        <div class="stat-label">Bevestigd</div>
+        <div class="stat-value" id="stat-confirmed">0</div>
+      </div>
+      <div class="stat-card today">
+        <div class="stat-label">Vandaag</div>
+        <div class="stat-value" id="stat-today">0</div>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <div class="filter-label">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Filter
+      </div>
+      <select id="filter-status">
+        <option value="all">Alle statussen</option>
+        <option value="pending">In afwachting</option>
+        <option value="confirmed">Bevestigd</option>
+        <option value="cancelled">Geannuleerd</option>
+      </select>
+      <select id="filter-type">
+        <option value="all">Alle types</option>
+        <option value="pool">Pool</option>
+        <option value="darts">Darts</option>
+        <option value="both">Pool + Darts</option>
+        <option value="group">Groep</option>
+      </select>
+      <input type="date" id="filter-date" />
+    </div>
+    <div class="table-wrapper" id="table-container">
+      <table class="res-table">
+        <thead>
+          <tr>
+            <th>Naam</th>
+            <th>Type</th>
+            <th>Datum</th>
+            <th>Tijd</th>
+            <th>Duur</th>
+            <th>Gasten</th>
+            <th>Status</th>
+            <th>Acties</th>
+          </tr>
+        </thead>
+        <tbody id="res-body"></tbody>
+      </table>
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <p>Geen reserveringen gevonden.</p>
+        <small>Reserveringen verschijnen hier wanneer ze via de website worden gemaakt.</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // SHA-256 hash of the admin PIN — to change the PIN, update this hash
+  // Current PIN: 1234 → SHA-256 hash below
+  var PIN_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+
+  var MAX_ATTEMPTS = 5;
+  var LOCKOUT_MS = 300000; // 5 minutes
+  var failedAttempts = 0;
+  var lockoutUntil = 0;
+
+  try {
+    var stored = JSON.parse(sessionStorage.getItem('fz-lockout') || '{}');
+    failedAttempts = stored.attempts || 0;
+    lockoutUntil = stored.until || 0;
+  } catch (e) {}
+
+  function saveLockout() {
+    try {
+      sessionStorage.setItem('fz-lockout', JSON.stringify({
+        attempts: failedAttempts,
+        until: lockoutUntil
+      }));
+    } catch (e) {}
+  }
+
+  async function hashPin(pin) {
+    var encoder = new TextEncoder();
+    var data = encoder.encode(pin);
+    var buffer = await crypto.subtle.digest('SHA-256', data);
+    var array = Array.from(new Uint8Array(buffer));
+    return array.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+  }
+
+  // PIN input auto-focus
+  var pinInputs = document.querySelectorAll('#pin-input input');
+  var loginBtn = document.getElementById('login-btn');
+  var loginError = document.getElementById('login-error');
+
+  pinInputs.forEach(function (inp, i) {
+    inp.addEventListener('input', function () {
+      if (this.value.length === 1 && i < pinInputs.length - 1) {
+        pinInputs[i + 1].focus();
+      }
+    });
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Backspace' && !this.value && i > 0) {
+        pinInputs[i - 1].focus();
+      }
+    });
+  });
+
+  function getPin() {
+    var pin = '';
+    pinInputs.forEach(function (inp) { pin += inp.value; });
+    return pin;
+  }
+
+  function clearPin() {
+    pinInputs.forEach(function (inp) { inp.value = ''; });
+    pinInputs[0].focus();
+  }
+
+  function checkLockout() {
+    if (lockoutUntil && Date.now() < lockoutUntil) {
+      var remaining = Math.ceil((lockoutUntil - Date.now()) / 60000);
+      loginError.textContent = 'Te veel pogingen. Probeer het over ' + remaining + ' minuten opnieuw.';
+      loginBtn.disabled = true;
+      pinInputs.forEach(function (inp) { inp.disabled = true; });
+      return true;
+    }
+    if (lockoutUntil && Date.now() >= lockoutUntil) {
+      failedAttempts = 0;
+      lockoutUntil = 0;
+      saveLockout();
+      loginBtn.disabled = false;
+      pinInputs.forEach(function (inp) { inp.disabled = false; });
+      loginError.textContent = '';
+    }
+    return false;
+  }
+
+  checkLockout();
+
+  loginBtn.addEventListener('click', async function () {
+    if (checkLockout()) return;
+
+    var pin = getPin();
+    if (pin.length !== 4) return;
+
+    var hash = await hashPin(pin);
+    if (hash === PIN_HASH) {
+      failedAttempts = 0;
+      lockoutUntil = 0;
+      saveLockout();
+      try { sessionStorage.setItem('fz-admin', '1'); } catch (e) {}
+      showDashboard();
+    } else {
+      failedAttempts++;
+      if (failedAttempts >= MAX_ATTEMPTS) {
+        lockoutUntil = Date.now() + LOCKOUT_MS;
+        saveLockout();
+        checkLockout();
+      } else {
+        saveLockout();
+        loginError.textContent = 'Onjuiste PIN-code. (' + (MAX_ATTEMPTS - failedAttempts) + ' pogingen over)';
+      }
+      clearPin();
+    }
+  });
+
+  pinInputs[pinInputs.length - 1].addEventListener('input', function () {
+    if (getPin().length === 4) {
+      setTimeout(function () { loginBtn.click(); }, 100);
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', function () {
+    try { sessionStorage.removeItem('fz-admin'); } catch (e) {}
+    location.reload();
+  });
+
+  try {
+    if (sessionStorage.getItem('fz-admin') === '1') showDashboard();
+  } catch (e) {}
+
+  function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').classList.add('active');
+    renderAll();
+  }
+
+  function getReservations() {
+    try { return JSON.parse(localStorage.getItem('fz-reservations') || '[]'); } catch (e) { return []; }
+  }
+
+  function saveReservations(list) {
+    try { localStorage.setItem('fz-reservations', JSON.stringify(list)); } catch (e) {}
+  }
+
+  function renderAll() {
+    var list = getReservations();
+    var statusFilter = document.getElementById('filter-status').value;
+    var typeFilter = document.getElementById('filter-type').value;
+    var dateFilter = document.getElementById('filter-date').value;
+
+    var filtered = list.filter(function (r) {
+      if (statusFilter !== 'all' && r.status !== statusFilter) return false;
+      if (typeFilter !== 'all' && r.type !== typeFilter) return false;
+      if (dateFilter && r.date !== dateFilter) return false;
+      return true;
+    });
+
+    filtered.sort(function (a, b) {
+      var da = a.date + ' ' + a.time;
+      var db = b.date + ' ' + b.time;
+      return da < db ? -1 : da > db ? 1 : 0;
+    });
+
+    // Stats
+    var todayStr = new Date().toISOString().slice(0, 10);
+    document.getElementById('stat-total').textContent = list.length;
+    document.getElementById('stat-pending').textContent = list.filter(function (r) { return r.status === 'pending'; }).length;
+    document.getElementById('stat-confirmed').textContent = list.filter(function (r) { return r.status === 'confirmed'; }).length;
+    document.getElementById('stat-today').textContent = list.filter(function (r) { return r.date === todayStr; }).length;
+
+    // Table
+    var tbody = document.getElementById('res-body');
+    var empty = document.getElementById('empty-state');
+    tbody.innerHTML = '';
+
+    if (filtered.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    var typeLabels = { pool: 'Pool', darts: 'Darts', both: 'Pool + Darts', group: 'Groep' };
+    var statusLabels = { pending: 'In afwachting', confirmed: 'Bevestigd', cancelled: 'Geannuleerd' };
+
+    filtered.forEach(function (r) {
+      var tr = document.createElement('tr');
+      var statusClass = 'status-' + r.status;
+      tr.innerHTML =
+        '<td><div class="res-name">' + esc(r.name) + '</div><div class="res-email">' + esc(r.email) + '</div></td>' +
+        '<td>' + (typeLabels[r.type] || r.type) + '</td>' +
+        '<td>' + esc(r.date) + '</td>' +
+        '<td>' + esc(r.time) + '</td>' +
+        '<td>' + esc(r.duration) + ' uur</td>' +
+        '<td>' + esc(r.guests) + '</td>' +
+        '<td><span class="status-badge ' + statusClass + '">' + (statusLabels[r.status] || r.status) + '</span></td>' +
+        '<td>' +
+          (r.status === 'pending' ? '<button class="action-btn confirm" data-id="' + r.id + '" data-action="confirmed">Bevestig</button>' : '') +
+          (r.status !== 'cancelled' ? '<button class="action-btn cancel" data-id="' + r.id + '" data-action="cancelled">Annuleer</button>' : '') +
+          '<button class="action-btn delete" data-id="' + r.id + '" data-action="delete">Verwijder</button>' +
+        '</td>';
+      tbody.appendChild(tr);
+    });
+
+    tbody.querySelectorAll('.action-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = this.getAttribute('data-id');
+        var action = this.getAttribute('data-action');
+        var all = getReservations();
+        if (action === 'delete') {
+          all = all.filter(function (r) { return r.id !== id; });
+        } else {
+          all.forEach(function (r) {
+            if (r.id === id) r.status = action;
+          });
+        }
+        saveReservations(all);
+        renderAll();
+      });
+    });
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  document.getElementById('filter-status').addEventListener('change', renderAll);
+  document.getElementById('filter-type').addEventListener('change', renderAll);
+  document.getElementById('filter-date').addEventListener('change', renderAll);
+
+  // CSV Export
+  document.getElementById('export-btn').addEventListener('click', function () {
+    var list = getReservations();
+    if (!list.length) return;
+    var headers = ['Naam', 'Email', 'Telefoon', 'Type', 'Datum', 'Tijd', 'Duur', 'Gasten', 'Status', 'Opmerkingen', 'Aangemaakt'];
+    var rows = list.map(function (r) {
+      return [r.name, r.email, r.phone || '', r.type, r.date, r.time, r.duration, r.guests, r.status, r.notes || '', r.createdAt || ''].map(function (v) {
+        return '"' + String(v).replace(/"/g, '""') + '"';
+      }).join(',');
+    });
+    var csv = '﻿' + headers.join(',') + '\n' + rows.join('\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'freezone-reserveringen-' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="nl" data-lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freezone Poolcafé — Special Beer Bar & Pool Café in Leeuwarden</title>
+<meta name="description" content="Freezone Poolcafé in Leeuwarden: 50 speciale bieren, 7 pooltafels, darts, live sport, cocktails. International pool café." />
+
+<!-- Security -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff" />
+<meta http-equiv="X-Frame-Options" content="DENY" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- SEO & Social -->
+<meta property="og:title" content="Freezone Poolcafé — Leeuwarden" />
+<meta property="og:description" content="50 speciale bieren, 7 pooltafels, darts, live sport en cocktails. De beste avond uit in Leeuwarden." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="nl_NL" />
+<meta property="og:locale:alternate" content="en_GB" />
+<meta property="og:image" content="img/freezone-logo.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Freezone Poolcafé — Leeuwarden" />
+<meta name="twitter:description" content="50 speciale bieren, 7 pooltafels, darts, live sport en cocktails." />
+<link rel="canonical" href="https://freezonepoolcafe.nl/" />
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "Freezone Poolcafé",
+  "description": "Special Beer Bar & Pool Café in Leeuwarden met 50+ bieren, 7 pooltafels, darts en live sport.",
+  "url": "https://freezonepoolcafe.nl",
+  "telephone": "+31582155316",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Leeuwarden",
+    "addressRegion": "Friesland",
+    "addressCountry": "NL"
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Sunday"], "opens": "15:00", "closes": "01:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "14:00", "closes": "02:00"}
+  ],
+  "servesCuisine": "Bar",
+  "priceRange": "€€",
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "Pool Tables", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Darts", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Live Sports", "value": true}
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=3" />
+</head>
+<body>
+
+<!-- Particle canvas -->
+<canvas id="particles" class="particles-bg" aria-hidden="true"></canvas>
+
+<!-- ===== Navigation ===== -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">
+      <img src="img/freezone-logo.png" alt="Freezone logo" class="brand-logo" />
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="#about" data-nl="Over ons" data-en="About">Over ons</a>
+      <a href="#beers" data-nl="Dranken" data-en="Drinks">Dranken</a>
+      <a href="#pool" data-nl="Pool & Games" data-en="Pool & Games">Pool &amp; Games</a>
+      <a href="#reservation" data-nl="Reserveren" data-en="Reserve">Reserveren</a>
+      <a href="#events" data-nl="Events" data-en="Events">Events</a>
+      <a href="#loyalty" data-nl="Loyalty" data-en="Loyalty">Loyalty</a>
+      <a href="#contact" data-nl="Contact" data-en="Contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+        <span class="lang-flag" data-active="nl">🇳🇱</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-flag" data-active="en">🇬🇧</span>
+      </button>
+      <a class="nav-cta" href="#reservation" data-nl="Reserveer" data-en="Book">Reserveer</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <div class="hero-video-wrap">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="video/hero-bg.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+  <div class="hero-gradient-line"></div>
+  <div class="container hero-content">
+    <div class="hero-badge animate-fade-down">
+      <span class="badge-dot"></span>
+      <span>Leeuwarden · International Pool Café</span>
+    </div>
+    <h1 class="animate-fade-up">
+      <span class="hero-line-1" data-nl="Where great beer" data-en="Where great beer">Where great beer</span><br>
+      <span class="hero-accent" data-nl="meets a great game." data-en="meets a great game.">meets a great game.</span>
+    </h1>
+    <p class="hero-sub animate-fade-up delay-1" data-nl="50 speciale bieren, 7 pooltafels, darts, live sport en cocktails. De beste avond uit in Leeuwarden begint hier." data-en="50 craft beers, 7 pool tables, darts, live sports and cocktails. The best night out in Leeuwarden starts here.">50 speciale bieren, 7 pooltafels, darts, live sport en cocktails. De beste avond uit in Leeuwarden begint hier.</p>
+    <div class="hero-actions animate-fade-up delay-2">
+      <a class="btn btn-primary btn-lg btn-glow" href="#reservation">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span data-nl="Reserveer nu" data-en="Book now">Reserveer nu</span>
+      </a>
+      <a class="btn btn-glass btn-lg" href="#beers">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+        <span data-nl="Bekijk ons aanbod" data-en="See our menu">Bekijk ons aanbod</span>
+      </a>
+    </div>
+    <div class="hero-stats animate-fade-up delay-3">
+      <div class="hero-stat">
+        <div class="stat-num counter" data-target="50">0</div>
+        <div class="stat-plus">+</div>
+        <div class="stat-label" data-nl="Bieren" data-en="Beers">Bieren</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="stat-num counter" data-target="7">0</div>
+        <div class="stat-label" data-nl="Pooltafels" data-en="Pool Tables">Pooltafels</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <div class="stat-num">€12</div>
+        <div class="stat-label" data-nl="Per uur" data-en="Per hour">Per uur</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</header>
+
+<!-- ===== Marquee ===== -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>SPECIAAL BIER</span><span class="marquee-dot"></span>
+    <span>POOL</span><span class="marquee-dot"></span>
+    <span>DARTS</span><span class="marquee-dot"></span>
+    <span>COCKTAILS</span><span class="marquee-dot"></span>
+    <span>LIVE SPORT</span><span class="marquee-dot"></span>
+    <span>LEEUWARDEN</span><span class="marquee-dot"></span>
+    <span>SPECIAAL BIER</span><span class="marquee-dot"></span>
+    <span>POOL</span><span class="marquee-dot"></span>
+    <span>DARTS</span><span class="marquee-dot"></span>
+    <span>COCKTAILS</span><span class="marquee-dot"></span>
+    <span>LIVE SPORT</span><span class="marquee-dot"></span>
+    <span>LEEUWARDEN</span><span class="marquee-dot"></span>
+  </div>
+</div>
+
+<!-- ===== About ===== -->
+<section id="about" class="section">
+  <div class="section-glow-accent"></div>
+  <div class="container">
+    <div class="split">
+      <div class="split-text reveal">
+        <div class="eyebrow"><span class="eyebrow-line"></span> <span data-nl="Over Freezone" data-en="About Freezone">Over Freezone</span></div>
+        <h2 data-nl="Méér dan een café." data-en="More than a café.">Méér dan een café.</h2>
+        <p data-nl="Freezone Poolcafé is dé spot in Leeuwarden voor iedereen die houdt van speciaal bier, pool en een goede sfeer. Of je nu komt voor een serieus potje 8-ball, een ontspannen avondje darts bij live sport op de schermen, of gewoon een bijzonder biertje aan de bar — bij Freezone voel je je meteen thuis." data-en="Freezone Pool Café is the go-to spot in Leeuwarden for anyone who loves craft beer, pool and great vibes. Whether you're here for a serious game of 8-ball, a relaxed evening of darts with live sports on the screens, or just a special beer at the bar — at Freezone you'll feel right at home.">Freezone Poolcafé is dé spot in Leeuwarden voor iedereen die houdt van speciaal bier, pool en een goede sfeer. Of je nu komt voor een serieus potje 8-ball, een ontspannen avondje darts bij live sport op de schermen, of gewoon een bijzonder biertje aan de bar — bij Freezone voel je je meteen thuis.</p>
+        <div class="about-highlights">
+          <div class="highlight glow-card">
+            <div class="highlight-icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/></svg></div>
+            <div>
+              <strong data-nl="50+ bieren" data-en="50+ beers">50+ bieren</strong>
+              <span data-nl="Tap, fles, craft & classic" data-en="Draft, bottle, craft & classic">Tap, fles, craft & classic</span>
+            </div>
+          </div>
+          <div class="highlight glow-card">
+            <div class="highlight-icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div>
+              <strong data-nl="7 pooltafels" data-en="7 pool tables">7 pooltafels</strong>
+              <span data-nl="€12 per uur · professioneel" data-en="€12 per hour · professional">€12 per uur · professioneel</span>
+            </div>
+          </div>
+          <div class="highlight glow-card">
+            <div class="highlight-icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div>
+            <div>
+              <strong data-nl="Live sport" data-en="Live sports">Live sport</strong>
+              <span data-nl="Grote schermen, elke wedstrijd" data-en="Big screens, every match">Grote schermen, elke wedstrijd</span>
+            </div>
+          </div>
+          <div class="highlight glow-card">
+            <div class="highlight-icon-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 2v2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M10 6h4"/><circle cx="12" cy="18" r="4"/></svg></div>
+            <div>
+              <strong data-nl="Cocktails & shots" data-en="Cocktails & shots">Cocktails & shots</strong>
+              <span data-nl="Cocktails, mocktails en shots" data-en="Cocktails, mocktails and shots">Cocktails, mocktails en shots</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="split-visual reveal">
+        <div class="about-visual-card">
+          <div class="avc-border-glow"></div>
+          <div class="avc-inner">
+            <img src="img/freezone-logo.png" alt="Freezone" class="placeholder-logo floating" />
+            <div class="avc-ring"></div>
+            <div class="avc-ring ring-2"></div>
+            <div class="avc-ring ring-3"></div>
+            <div class="avc-sparkle s1"></div>
+            <div class="avc-sparkle s2"></div>
+            <div class="avc-sparkle s3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Drinks ===== -->
+<section id="beers" class="section section-dark">
+  <div class="container">
+    <div class="section-heading center reveal">
+      <div class="eyebrow"><span class="eyebrow-line"></span> <span data-nl="Ons aanbod" data-en="Our menu">Ons aanbod</span></div>
+      <h2 data-nl="50+ bieren en meer." data-en="50+ beers and more.">50+ bieren en meer.</h2>
+      <p data-nl="Van frisse blondes tot robuuste stouts, van cocktails tot mocktails — voor elke smaak iets." data-en="From crisp blondes to robust stouts, from cocktails to mocktails — something for every taste.">Van frisse blondes tot robuuste stouts, van cocktails tot mocktails — voor elke smaak iets.</p>
+    </div>
+    <div class="beer-grid reveal-stagger">
+      <div class="beer-card glow-card">
+        <div class="beer-icon-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></div>
+        <h3 data-nl="Speciaal bier" data-en="Craft beer">Speciaal bier</h3>
+        <p data-nl="50+ verschillende bieren. Van bekende merken tot bijzondere craft bieren." data-en="50+ different beers. From well-known brands to unique craft brews.">50+ verschillende bieren. Van bekende merken tot bijzondere craft bieren.</p>
+        <div class="beer-tag">50+ soorten</div>
+      </div>
+      <div class="beer-card glow-card">
+        <div class="beer-icon-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 11v11"/><path d="m19.5 8-7.5 3-7.5-3"/><path d="M12 2c1 3 4 5 7.5 6L12 11 4.5 8C8 7 11 5 12 2z"/></svg></div>
+        <h3>Cocktails</h3>
+        <p data-nl="Klassieke cocktails en onze eigen signature mixen." data-en="Classic cocktails and our own signature mixes.">Klassieke cocktails en onze eigen signature mixen.</p>
+        <div class="beer-tag">Classic & signature</div>
+      </div>
+      <div class="beer-card glow-card">
+        <div class="beer-icon-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 5.5 10 10"/><path d="m3 3 2.5 2.5"/><path d="M14.5 14.5 19 19"/><path d="m17 17 2 2"/><path d="m7 21 6.5-6.5"/><path d="M10.5 12.5 17 6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <h3>Mocktails</h3>
+        <p data-nl="Zonder alcohol, met alle smaak. Verfrissende mocktails." data-en="No alcohol, all the flavor. Refreshing mocktails.">Zonder alcohol, met alle smaak. Verfrissende mocktails.</p>
+        <div class="beer-tag">0% alcohol</div>
+      </div>
+      <div class="beer-card glow-card">
+        <div class="beer-icon-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 11-13h-8l1-7z"/></svg></div>
+        <h3>Shots</h3>
+        <p data-nl="De avond op gang brengen? Kies uit onze selectie shots." data-en="Get the party started? Choose from our shot selection.">De avond op gang brengen? Kies uit onze selectie shots.</p>
+        <div class="beer-tag">Let's go</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Pool & Games ===== -->
+<section id="pool" class="section">
+  <div class="section-glow-accent right"></div>
+  <div class="container">
+    <div class="split split-reverse">
+      <div class="split-text reveal">
+        <div class="eyebrow"><span class="eyebrow-line"></span> <span data-nl="Pool, Darts & Live Sport" data-en="Pool, Darts & Live Sports">Pool, Darts & Live Sport</span></div>
+        <h2 data-nl="7 tafels. Jouw game." data-en="7 tables. Your game.">7 tafels. Jouw game.</h2>
+        <p data-nl="Onze 7 professionele pooltafels staan klaar voor 8-ball, 9-ball of gewoon een relaxed potje met vrienden. Voor slechts €12 per uur heb je een tafel voor je groep." data-en="Our 7 professional pool tables are ready for 8-ball, 9-ball or just a relaxed game with friends. For only €12 per hour you have a table for your group.">Onze 7 professionele pooltafels staan klaar voor 8-ball, 9-ball of gewoon een relaxed potje met vrienden. Voor slechts €12 per uur heb je een tafel voor je groep.</p>
+        <div class="pool-features">
+          <div class="pool-feat"><div class="feat-check">&#10003;</div><span data-nl="7 professionele pooltafels" data-en="7 professional pool tables">7 professionele pooltafels</span></div>
+          <div class="pool-feat"><div class="feat-check">&#10003;</div><span data-nl="€12 per uur per tafel" data-en="€12 per hour per table">€12 per uur per tafel</span></div>
+          <div class="pool-feat"><div class="feat-check">&#10003;</div><span data-nl="Dartborden beschikbaar" data-en="Dartboards available">Dartborden beschikbaar</span></div>
+          <div class="pool-feat"><div class="feat-check">&#10003;</div><span data-nl="Live sport op grote schermen" data-en="Live sports on big screens">Live sport op grote schermen</span></div>
+        </div>
+        <div class="pool-price glow-card">
+          <div class="price-amount">€12<small>/uur</small></div>
+          <div class="price-desc" data-nl="Per tafel · inclusief keus en ballen" data-en="Per table · cues and balls included">Per tafel · inclusief keus en ballen</div>
+        </div>
+        <a class="btn btn-primary btn-glow" href="#reservation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span data-nl="Reserveer een tafel" data-en="Book a table">Reserveer een tafel</span>
+        </a>
+      </div>
+      <div class="split-visual reveal">
+        <div class="pool-visual">
+          <div class="pool-table-art">
+            <div class="table-surface">
+              <div class="table-pocket tp-tl"></div>
+              <div class="table-pocket tp-tr"></div>
+              <div class="table-pocket tp-bl"></div>
+              <div class="table-pocket tp-br"></div>
+              <div class="table-pocket tp-ml"></div>
+              <div class="table-pocket tp-mr"></div>
+              <div class="table-ball tb-1 ball-float" style="top:30%;left:40%"></div>
+              <div class="table-ball tb-2 ball-float" style="top:55%;left:60%;animation-delay:-1s"></div>
+              <div class="table-ball tb-3 ball-float" style="top:40%;left:25%;animation-delay:-2s"></div>
+              <div class="table-ball tb-4 ball-float" style="top:65%;left:45%;animation-delay:-0.5s"></div>
+              <div class="table-ball tb-cue" style="top:70%;left:25%"></div>
+              <div class="table-cue-stick"></div>
+            </div>
+          </div>
+          <div class="pool-table-shadow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Reservation ===== -->
+<section id="reservation" class="section section-dark">
+  <div class="container">
+    <div class="section-heading center reveal">
+      <div class="eyebrow"><span class="eyebrow-line"></span> <span data-nl="Reserveren" data-en="Book a table">Reserveren</span></div>
+      <h2 data-nl="Reserveer je tafel." data-en="Reserve your table.">Reserveer je tafel.</h2>
+      <p data-nl="Boek een pooltafel of dartbord vooruit zodat je zeker bent van je plek." data-en="Book a pool table or dartboard ahead so you're sure of your spot.">Boek een pooltafel of dartbord vooruit zodat je zeker bent van je plek.</p>
+    </div>
+    <div class="reservation-wrapper reveal">
+      <form class="reservation-form glow-card" id="reservation-form" novalidate>
+        <!-- Honeypot spam protection -->
+        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+          <input type="text" name="website" id="res-hp" tabindex="-1" autocomplete="off" />
+        </div>
+        <div class="res-grid">
+          <div class="field">
+            <label for="res-name"><span data-nl="Naam" data-en="Name">Naam</span></label>
+            <input id="res-name" name="name" required autocomplete="name" placeholder="Jan de Vries" />
+          </div>
+          <div class="field">
+            <label for="res-email"><span>Email</span></label>
+            <input id="res-email" name="email" type="email" required autocomplete="email" placeholder="jan@voorbeeld.nl" />
+          </div>
+          <div class="field">
+            <label for="res-phone"><span data-nl="Telefoon" data-en="Phone">Telefoon</span></label>
+            <input id="res-phone" name="phone" type="tel" autocomplete="tel" placeholder="06 12345678" />
+          </div>
+          <div class="field">
+            <label for="res-type"><span data-nl="Wat wil je reserveren?" data-en="What to reserve?">Wat wil je reserveren?</span></label>
+            <select id="res-type" name="type">
+              <option value="pool" data-nl="Pooltafel (€12/uur)" data-en="Pool table (€12/hr)">Pooltafel (€12/uur)</option>
+              <option value="darts" data-nl="Dartbord" data-en="Dartboard">Dartbord</option>
+              <option value="both" data-nl="Pool + Darts" data-en="Pool + Darts">Pool + Darts</option>
+              <option value="group" data-nl="Groepsreservering" data-en="Group booking">Groepsreservering</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="res-date"><span data-nl="Datum" data-en="Date">Datum</span></label>
+            <input id="res-date" name="date" type="date" required />
+          </div>
+          <div class="field">
+            <label for="res-time"><span data-nl="Tijd" data-en="Time">Tijd</span></label>
+            <input id="res-time" name="time" type="time" required />
+          </div>
+          <div class="field">
+            <label for="res-duration"><span data-nl="Duur" data-en="Duration">Duur</span></label>
+            <select id="res-duration" name="duration">
+              <option value="1" data-nl="1 uur" data-en="1 hour">1 uur</option>
+              <option value="2" selected data-nl="2 uur" data-en="2 hours">2 uur</option>
+              <option value="3" data-nl="3 uur" data-en="3 hours">3 uur</option>
+              <option value="4" data-nl="4+ uur" data-en="4+ hours">4+ uur</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="res-guests"><span data-nl="Aantal personen" data-en="Number of guests">Aantal personen</span></label>
+            <select id="res-guests" name="guests">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="8">8+</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-top:0.5rem;">
+          <label for="res-notes"><span data-nl="Opmerkingen (optioneel)" data-en="Notes (optional)">Opmerkingen (optioneel)</span></label>
+          <textarea id="res-notes" name="notes" rows="2" data-placeholder-nl="Bijv. verjaardagsfeest, specifieke tafel..." data-placeholder-en="E.g. birthday party, specific table..." placeholder="Bijv. verjaardagsfeest, specifieke tafel..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-lg btn-glow btn-full" type="submit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <span data-nl="Bevestig reservering" data-en="Confirm reservation">Bevestig reservering</span>
+        </button>
+        <div class="form-status" id="res-status" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Events ===== -->
+<section id="events" class="section">
+  <div class="container">
+    <div class="section-heading center reveal">
+      <div class="eyebrow"><span class="eyebrow-line"></span> <span data-nl="Events & avonden" data-en="Events & nights">Events & avonden</span></div>
+      <h2 data-nl="Er is altijd wat te doen." data-en="There's always something going on.">Er is altijd wat te doen.</h2>
+    </div>
+    <div class="events-grid reveal-stagger">
+      <div class="event-card glow-card">
+        <div class="event-number">01</div>
+        <h3 data-nl="Pooltoernooi" data-en="Pool Tournament">Pooltoernooi</h3>
+        <p data-nl="Schrijf je in voor ons wekelijkse pooltoernooi. Speel tegen andere regulars en win!" data-en="Sign up for our weekly pool tournament. Play against other regulars and win!">Schrijf je in voor ons wekelijkse pooltoernooi. Speel tegen andere regulars en win!</p>
+        <div class="event-tag" data-nl="Wekelijks" data-en="Weekly">Wekelijks</div>
+      </div>
+      <div class="event-card glow-card">
+        <div class="event-number">02</div>
+        <h3 data-nl="Sport op groot scherm" data-en="Sports on the big screen">Sport op groot scherm</h3>
+        <p data-nl="Champions League, Eredivisie, UFC en meer op onze grote schermen." data-en="Champions League, Eredivisie, UFC and more on our big screens.">Champions League, Eredivisie, UFC en meer op onze grote schermen.</p>
+        <div class="event-tag">Live</div>
+      </div>
+      <div class="event-card glow-card">
+        <div class="event-number">03</div>
+        <h3 data-nl="Bierproeverij" data-en="Beer Tasting">Bierproeverij</h3>
+        <p data-nl="Ontdek nieuwe speciale bieren. Wisselende taps en nieuwe flessen." data-en="Discover new craft beers. Rotating taps and new bottles.">Ontdek nieuwe speciale bieren. Wisselende taps en nieuwe flessen.</p>
+        <div class="event-tag" data-nl="Maandelijks" data-en="Monthly">Maandelijks</div>
+      </div>
+    </div>
+    <div class="center reveal" style="margin-top:2.5rem;">
+      <a href="https://www.instagram.com/freezonepoolcafe" target="_blank" rel="noopener" class="btn btn-glass">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <span data-nl="Volg ons op Instagram" data-en="Follow us on Instagram">Volg ons op Instagram</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Loyalty ===== -->
+<section id="loyalty" class="section section-dark">
+  <div class="container">
+    <div class="split">
+      <div class="split-text reveal">
+        <div class="eyebrow"><span class="eyebrow-line"></span> Teruggo Loyalty</div>
+        <h2 data-nl="Spaar voor gratis bier." data-en="Earn free beer.">Spaar voor gratis bier.</h2>
+        <p data-nl="Freezone werkt met Teruggo — een digitale stempelkaart op je telefoon. Geen app nodig, geen plastic kaartje. Scan de QR-code, spaar stempels en verdien een gratis biertje." data-en="Freezone uses Teruggo — a digital stamp card on your phone. No app needed, no plastic card. Scan the QR code, collect stamps and earn a free beer.">Freezone werkt met <strong>Teruggo</strong> — een digitale stempelkaart op je telefoon. Geen app nodig, geen plastic kaartje. Scan de QR-code, spaar stempels en verdien een gratis biertje.</p>
+        <div class="loyalty-steps">
+          <div class="loyalty-step"><div class="step-num">1</div><div><strong data-nl="Scan de QR-code" data-en="Scan the QR code">Scan de QR-code</strong><span data-nl="Aan de bar of op tafel" data-en="At the bar or on the table">Aan de bar of op tafel</span></div></div>
+          <div class="loyalty-step"><div class="step-num">2</div><div><strong data-nl="Ontvang stempels" data-en="Collect stamps">Ontvang stempels</strong><span data-nl="Bij elk bezoek een stempel erbij" data-en="A stamp added with each visit">Bij elk bezoek een stempel erbij</span></div></div>
+          <div class="loyalty-step"><div class="step-num">3</div><div><strong data-nl="8 stempels = gratis bier" data-en="8 stamps = free beer">8 stempels = gratis bier</strong><span data-nl="Laat je kaart zien aan de bar" data-en="Show your card at the bar">Laat je kaart zien aan de bar</span></div></div>
+        </div>
+      </div>
+      <div class="split-visual reveal">
+        <div class="loyalty-card-demo">
+          <div class="lcd-inner glow-card">
+            <div class="lcd-shine"></div>
+            <div class="lcd-top">
+              <div class="lcd-biz">Freezone Poolcafé</div>
+              <div class="lcd-holder" data-nl="Jouw naam" data-en="Your name">Jouw naam</div>
+            </div>
+            <div class="lcd-stamps">
+              <span class="lcd-stamp filled pulse-stamp" style="animation-delay:0s">&#9733;</span>
+              <span class="lcd-stamp filled pulse-stamp" style="animation-delay:0.1s">&#9733;</span>
+              <span class="lcd-stamp filled pulse-stamp" style="animation-delay:0.2s">&#9733;</span>
+              <span class="lcd-stamp filled pulse-stamp" style="animation-delay:0.3s">&#9733;</span>
+              <span class="lcd-stamp filled pulse-stamp" style="animation-delay:0.4s">&#9733;</span>
+              <span class="lcd-stamp">&#9734;</span>
+              <span class="lcd-stamp">&#9734;</span>
+              <span class="lcd-stamp">&#9734;</span>
+            </div>
+            <div class="lcd-progress" data-nl="5 van 8 stempels" data-en="5 of 8 stamps">5 van 8 stempels</div>
+            <div class="lcd-reward" data-nl="Nog 3 voor een gratis bier" data-en="3 more for a free beer">Nog 3 voor een gratis bier</div>
+            <div class="lcd-powered">Powered by Teruggo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Opening Hours ===== -->
+<section id="hours" class="section section-accent">
+  <div class="container">
+    <div class="hours-grid reveal">
+      <div class="hours-info">
+        <div class="eyebrow"><span class="eyebrow-line light"></span> <span data-nl="Openingstijden" data-en="Opening Hours">Openingstijden</span></div>
+        <h2 data-nl="Wanneer ben je welkom?" data-en="When are you welcome?">Wanneer ben je welkom?</h2>
+        <p data-nl="Elke dag. Kom langs voor een potje pool, een speciaal biertje, of gewoon de sfeer." data-en="Every day. Drop by for a game of pool, a craft beer, or just the atmosphere.">Elke dag. Kom langs voor een potje pool, een speciaal biertje, of gewoon de sfeer.</p>
+        <a class="btn btn-primary btn-glow" href="tel:+31582155316" style="margin-top:1.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.61.68 2.37a2 2 0 0 1-.45 2.11L8.09 9.45a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.76.32 1.56.55 2.37.68a2 2 0 0 1 1.72 2.06z"/></svg>
+          058 215 5316
+        </a>
+      </div>
+      <div class="hours-table glow-card">
+        <div class="hours-row" data-today="1"><span data-nl="Maandag" data-en="Monday">Maandag</span><span>15:00 – 01:00</span></div>
+        <div class="hours-row" data-today="2"><span data-nl="Dinsdag" data-en="Tuesday">Dinsdag</span><span>15:00 – 01:00</span></div>
+        <div class="hours-row" data-today="3"><span data-nl="Woensdag" data-en="Wednesday">Woensdag</span><span>15:00 – 01:00</span></div>
+        <div class="hours-row" data-today="4"><span data-nl="Donderdag" data-en="Thursday">Donderdag</span><span>15:00 – 01:00</span></div>
+        <div class="hours-row" data-today="5"><span data-nl="Vrijdag" data-en="Friday">Vrijdag</span><span>15:00 – 02:00</span></div>
+        <div class="hours-row" data-today="6"><span data-nl="Zaterdag" data-en="Saturday">Zaterdag</span><span>14:00 – 02:00</span></div>
+        <div class="hours-row" data-today="0"><span data-nl="Zondag" data-en="Sunday">Zondag</span><span>15:00 – 01:00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-heading center reveal">
+      <div class="eyebrow"><span class="eyebrow-line"></span> Contact</div>
+      <h2 data-nl="Kom langs of neem contact op." data-en="Drop by or get in touch.">Kom langs of neem contact op.</h2>
+    </div>
+    <div class="contact-cards reveal-stagger">
+      <a href="tel:+31582155316" class="contact-tile glow-card">
+        <div class="ct-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.61.68 2.37a2 2 0 0 1-.45 2.11L8.09 9.45a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.76.32 1.56.55 2.37.68a2 2 0 0 1 1.72 2.06z"/></svg></div>
+        <div class="ct-label" data-nl="Bel ons" data-en="Call us">Bel ons</div>
+        <div class="ct-value">058 215 5316</div>
+      </a>
+      <a href="https://www.instagram.com/freezonepoolcafe" target="_blank" rel="noopener" class="contact-tile glow-card">
+        <div class="ct-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div class="ct-label">Instagram</div>
+        <div class="ct-value">@freezonepoolcafe</div>
+      </a>
+      <div class="contact-tile glow-card">
+        <div class="ct-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c4.5-3 8-6.4 8-11a8 8 0 0 0-16 0c0 4.6 3.5 8 8 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <div class="ct-label" data-nl="Adres" data-en="Address">Adres</div>
+        <div class="ct-value">Leeuwarden, Friesland</div>
+      </div>
+      <div class="contact-tile glow-card">
+        <div class="ct-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="ct-label" data-nl="Open" data-en="Open">Open</div>
+        <div class="ct-value" data-nl="Dagelijks vanaf 14/15u" data-en="Daily from 2/3 PM">Dagelijks vanaf 14/15u</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">
+  <div class="footer-gradient-line"></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="img/freezone-logo.png" alt="Freezone" class="footer-logo" />
+        <p>Special Beer Bar & Pool Café<br>Leeuwarden, Friesland</p>
+      </div>
+      <div>
+        <h4 data-nl="Navigatie" data-en="Navigation">Navigatie</h4>
+        <ul>
+          <li><a href="#about" data-nl="Over ons" data-en="About">Over ons</a></li>
+          <li><a href="#beers" data-nl="Dranken" data-en="Drinks">Dranken</a></li>
+          <li><a href="#pool" data-nl="Pool & Games" data-en="Pool & Games">Pool & Games</a></li>
+          <li><a href="#reservation" data-nl="Reserveren" data-en="Reserve">Reserveren</a></li>
+          <li><a href="#events" data-nl="Events" data-en="Events">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+31582155316">058 215 5316</a></li>
+          <li><a href="https://www.instagram.com/freezonepoolcafe" target="_blank" rel="noopener">@freezonepoolcafe</a></li>
+          <li><a href="#loyalty">Teruggo Loyalty</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Freezone Poolcafé</span>
+      <span>Loyalty by <a href="#">Teruggo</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js?v=3"></script>
+</body>
+</html>

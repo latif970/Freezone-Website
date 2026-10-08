@@ -1,0 +1,6 @@
+# Large media files — compress before adding
+video/
+
+# OS files
+Thumbs.db
+.DS_Store
